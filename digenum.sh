@@ -99,6 +99,7 @@ fi
 if [[ "$urlAsArg" != "" ]]; then
   echo $urlAsArg > url.temp
   wordlist="url.temp"
+  show="true"
 fi
 
 # throw error if no wordlist is provided
@@ -139,7 +140,7 @@ for url in $(cat $wordlist); do
     ip=$(echo "$answerSection" | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | head -1)
     echo -e "$GREEN[+]$NOCOLOR $url is cached and has ip-address $ip."
   fi
-  if [[ "$show" == "true" ]]; then
+  if [[ "$show" == "true" ]] && [[ "$answerSection" == "" ]]; then
     echo -e "$YELLOW[+]$NOCOLOR $url is not cached."
   fi
 done
