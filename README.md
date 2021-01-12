@@ -3,6 +3,7 @@ Summary
 Have you ever wondered what websites are visited through the router you are connected to the internet with?
 Search no more and use this tool.
 With this tool you can enumerate the history of your router.
+![digenum](https://raw.githubusercontent.com/MKesenheimer/digenum/main/digenum.png)
 
 Usage
 =====
