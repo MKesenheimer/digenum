@@ -33,8 +33,9 @@ usage() {
   echo -e $NOCOLOR
   echo "usage: exerror.sh -ip <IP-Address> -w <wordlist> [options...]"
   echo "       -h|--help           show this message"
-  echo "       -u|--url            enum a single url instead of a wordlist"
+  echo "       -u|--url            enum a single url/host instead of using a wordlist"
   echo "       -v|--verbosity <n>  level of verbosity"
+  echo "       -s|--show           show negative results"
 }
 
 if [[ $# -lt 1 ]]; then 
@@ -47,6 +48,7 @@ ipaddress=""
 verbosity="0"
 wordlist=""
 urlAsArg=""
+show="false"
 POSITIONAL=()
 while [[ $# -gt 0 ]]; do
   key="$1"
@@ -73,6 +75,10 @@ while [[ $# -gt 0 ]]; do
     -v|--verbosity)
     verbosity="$2"
     shift
+    shift
+    ;;
+    -s|--show)
+    show="true"
     shift
     ;;
     *)    # unknown option
@@ -130,9 +136,10 @@ for url in $(cat $wordlist); do
   fi
 
   if [[ "$answerSection" != "" ]]; then
-    ip=$(echo "$answerSection" | grep "$url" | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b")
+    ip=$(echo "$answerSection" | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | head -1)
     echo -e "$GREEN[+]$NOCOLOR $url is cached and has ip-address $ip."
-  else
+  fi
+  if [[ "$show" == "true" ]]; then
     echo -e "$YELLOW[+]$NOCOLOR $url is not cached."
   fi
 done
