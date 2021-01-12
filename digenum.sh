@@ -146,6 +146,9 @@ for url in $(cat $wordlist); do
 done
 
 if [[ "$urlAsArg" != "" ]]; then
+  if [[ $verbosity -ge 1 ]]; then
+    echo -e "$GREEN[+]$NOCOLOR removing url.temp"
+  fi
   rm url.temp
 fi
 
