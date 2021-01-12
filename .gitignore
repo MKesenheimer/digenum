@@ -1,3 +1,1 @@
-*.badWords
-*.add
-*.aux
+.DS_Store
